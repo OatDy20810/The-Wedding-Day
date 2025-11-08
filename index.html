@@ -2,528 +2,1319 @@
 <html lang="th">
 
 <head>
-  <meta charset="UTF-8">
-  <title>ระบบโปรเจคอัปโหลดรูปภาพXXX</title>
-  <script src="https://cdn.jsdelivr.net/npm/heic2any/dist/heic2any.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Wedding Invitation — Love</title>
 
-    body {
-      font-family: 'Prompt', sans-serif;
-      margin: 0;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      padding: 20px;
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-      color: #e0e6f0;
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400&family=Noto+Sans+Thai:wght@300;400&display=swap"
+        rel="stylesheet">
 
-    .sidebar {
-      width: 280px;
-      min-width: 280px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      padding: 24px;
-      overflow-y: auto;
-      margin-right: 24px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
+    <style>
+        /* ========== Variables ========== */
+        :root {
+            --font-heading: 'Montserrat', sans-serif;
+            --font-special: 'Cormorant Garamond', serif;
+            --font-body: 'Noto Sans Thai', sans-serif;
+            --pink: #C08C80;
+            --light: #F8F4E3;
+            --green: #A3C1AD;
+            --dark: #5D5D5D;
+            --text: #333;
+            --muted: #888;
+            --glass: rgba(255, 255, 255, 0.6);
+            --accent: linear-gradient(135deg, #C08C80, #A3C1AD);
+        }
 
-    .main {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.07);
-      border-radius: 24px;
-      padding: 40px;
-      overflow-y: auto;
-      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
+        /* ========== Base ========== */
+        * {
+            box-sizing: border-box
+        }
 
-    h2,
-    h3 {
-      margin-top: 0;
-      font-weight: 700;
-      font-size: 28px;
-      letter-spacing: 1.2px;
-      color: #f0f4ff;
-      text-shadow: 0 0 8px rgba(0, 100, 255, 0.7);
-    }
+        html {
+            scroll-behavior: smooth
+        }
 
-    .actions {
-      display: flex;
-      gap: 14px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-    }
+        body {
+            margin: 0;
+            padding-top: 60px;
+            padding-bottom: 90px;
+            font-family: var(--font-body);
+            color: var(--text);
+            background: radial-gradient(circle at top left, #fff, #fffefc 40%), #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            position: relative;
+        }
 
-    button {
-      background: linear-gradient(135deg, #2a6aff, #00d4ff);
-      color: white;
-      padding: 12px 26px;
-      border: none;
-      border-radius: 16px;
-      font-size: 17px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
-      transition: all 0.3s ease;
-      user-select: none;
-      filter: drop-shadow(0 0 4px #00d4ff);
-    }
+        /* ========== Preloader / Intro Envelope (ถูกลบออกแล้ว) ========== */
 
-    button:hover {
-      background: linear-gradient(135deg, #1c46b9, #00b8e6);
-      box-shadow: 0 10px 28px rgba(0, 184, 230, 0.9);
-      transform: translateY(-2px);
-    }
+        .open-btn {
+            margin-top: 12px;
+            padding: 10px 18px;
+            border-radius: 22px;
+            border: 0;
+            background: var(--pink);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: var(--font-heading);
+            box-shadow: 0 8px 20px rgba(192, 140, 128, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-    input[type="text"] {
-      padding: 12px 16px;
-      width: 100%;
-      border-radius: 16px;
-      border: 1.5px solid rgba(255, 255, 255, 0.2);
-      margin-bottom: 14px;
-      font-size: 15px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #e6f0ff;
-      box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
-      transition: border-color 0.3s ease;
-    }
+        .open-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(192, 140, 128, 0.3);
+        }
 
-    input[type="text"]:focus {
-      outline: none;
-      border-color: #00d4ff;
-      box-shadow: 0 0 12px #00d4ff;
-    }
+        /* ========== Top Bar ========== */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            z-index: 1001;
+            backdrop-filter: blur(4px);
+        }
 
-    .sidebar button {
-      margin-bottom: 18px;
-      /* ยกห่างจากรายการโปรเจคด้านล่าง */
-    }
+        .top-left {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
 
-    #projectList {
-      margin-top: 0;
-      /* กันไว้เผื่อมีค่าจากที่อื่น */
-    }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
 
+        .monogram {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: var(--pink);
+            color: #fff;
+            font-weight: 700;
+            font-family: var(--font-special);
+            box-shadow: 0 6px 16px rgba(192, 140, 128, 0.25);
+        }
 
-    .project-item {
-      padding: 14px 18px;
-      background: rgba(255, 255, 255, 0.1);
-      margin-bottom: 12px;
-      border-radius: 16px;
-      cursor: pointer;
-      font-weight: 700;
-      white-space: normal;
-      word-break: break-word;
-      transition: background 0.25s ease, transform 0.15s ease;
-      color: #d0e4ff;
-      user-select: none;
-      box-shadow: 0 0 8px rgba(0, 150, 255, 0.3);
-    }
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
 
-    .project-item:hover {
-      background: rgba(0, 212, 255, 0.15);
-      transform: translateX(6px);
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
-    }
+        .icon-btn {
+            background: none;
+            border: 0;
+            padding: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px
+        }
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 26px;
-    }
+        .music-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--muted)
+        }
 
-    .image-block {
-      position: relative;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 18px;
-      border-radius: 20px;
-      box-shadow: 0 8px 24px rgba(0, 100, 255, 0.2);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+        /* ========== Content ========== */
+        .content {
+            padding: 18px;
+            max-width: 980px;
+            margin: 0 auto
+        }
 
-    .image-block:hover {
-      box-shadow: 0 12px 36px rgba(0, 150, 255, 0.6);
-      transform: translateY(-6px);
-    }
+        .page-section {
+            padding: 30px 0;
+            border-bottom: 1px solid #f4f4f4;
+            scroll-margin-top: 68px
+        }
 
-    .image-block img {
-      width: 100%;
-      border-radius: 14px;
-      margin-bottom: 12px;
-      cursor: zoom-in;
-      box-shadow: 0 4px 16px rgba(0, 100, 255, 0.3);
-      transition: filter 0.3s ease;
-    }
+        h1,
+        h2 {
+            font-family: var(--font-heading);
+            color: var(--pink);
+            margin: 8px 0
+        }
 
-    .image-block img:hover {
-      filter: brightness(1.1);
-    }
+        .main-photo-wrapper {
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative
+        }
 
-    .caption-input {
-      padding: 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 15px;
-      min-height: 90px;
-      resize: vertical;
-      background: rgba(255, 255, 255, 0.1);
-      color: #dbe9ff;
-      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.12);
-      transition: border-color 0.3s ease;
-    }
+        .main-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform: translateZ(0);
+            transition: transform 12s ease
+        }
 
-    .caption-input:focus {
-      outline: none;
-      border-color: #00d4ff;
-      box-shadow: 0 0 14px #00d4ff;
-      background: rgba(255, 255, 255, 0.15);
-    }
+        .main-photo-wrapper:hover .main-photo {
+            transform: scale(1.06) translateY(-6px)
+        }
 
-    .remove-btn {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      background: rgba(255, 90, 90, 0.95);
-      border: none;
-      color: white;
-      padding: 8px 14px;
-      border-radius: 50px;
-      font-size: 25px;      /* เพิ่มขนาดตัวหนังสือ */
-      min-width: 60px;      /* กำหนดความกว้างขั้นต่ำ */
-      border-radius: 8px;   /* ปรับมุมให้ดูนุ่มนวลขึ้น */
-      cursor: pointer;
-      z-index: 10;
-      box-shadow: 0 0 8px rgba(255, 50, 50, 0.8);
-      transition: background 0.25s ease;
-    }
+        /* ========== Program header ========== */
+        .program-header {
+            text-align: center;
+            margin-top: 18px
+        }
 
-    .remove-btn:hover {
-      background: rgba(255, 50, 50, 1);
-    }
+        .couple-name {
+            font-family: var(--font-special);
+            font-size: 44px;
+            font-weight: 600;
+            color: var(--pink);
+            margin: 6px 0
+        }
 
-    /* Lightbox */
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(10, 10, 30, 0.95);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
+        .parents img {
+            width: 140px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08)
+        }
 
-    .lightbox-img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 16px;
-      box-shadow: 0 0 40px rgba(0, 180, 255, 0.9);
-      transition: transform 0.3s ease;
-    }
+        /* ========== Countdown ========== */
+        .countdown-container {
+            max-width: 720px;
+            margin: 18px auto;
+            padding: 18px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(192, 140, 128, 0.06), rgba(163, 193, 173, 0.03));
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
 
-    .close-btn {
-      position: fixed;
-      top: 30px;
-      right: 40px;
-      color: #00d4ff;
-      font-size: 42px;
-      font-weight: 700;
-      cursor: pointer;
-      user-select: none;
-      z-index: 10000;
-      text-shadow: 0 0 12px #00d4ff;
-    }
+        .countdown-timer {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap
+        }
 
-    .close-btn:hover {
-      color: #1bf;
-      text-shadow: 0 0 20px #00d4ff;
-    }
+        .countdown-item {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            min-width: 78px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03)
+        }
 
-    /* .project-input-group {
-      position: sticky;
-      top: 0;
-      background: none;
-      z-index: 10;
-      padding-bottom: 10px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid none;
-    }
+        .countdown-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--pink)
+        }
 
-    .project-input-group input {
-      margin-bottom: 6px;
-    }
+        .countdown-label {
+            font-size: 12px;
+            color: var(--muted)
+        }
 
-    .sidebar h3 {
-      margin-top: 10px;
-    } */
-  </style>
+        /* ========== Theme & QR ========== */
+        .theme-colors {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center
+        }
+
+        .color-swatch {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06)
+        }
+
+        .qr-section {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 12px
+        }
+
+        .qr-box {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06)
+        }
+
+        .copy-btn {
+            margin-top: 6px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 0;
+            background: var(--pink);
+            color: #fff;
+            cursor: pointer;
+            font-size: 13px
+        }
+
+        /* ========== Gallery ========== */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px
+        }
+
+        .photo-grid img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform .4s, box-shadow .4s
+        }
+
+        .photo-grid img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12)
+        }
+
+        /* ========== Location ========== */
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08)
+        }
+
+        .location-address {
+            line-height: 1.6;
+            text-align: center;
+            margin-top: 12px
+        }
+
+        .direction-button {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background: var(--pink);
+            color: #fff;
+            text-decoration: none;
+            margin-top: 10px
+        }
+
+        /* ========== Bottom Nav ========== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.98);
+            display: flex;
+            gap: 8px;
+            padding: 8px;
+            border-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            z-index: 1001
+        }
+
+        .nav-button {
+            background: none;
+            border: 0;
+            padding: 12px 16px;
+            border-radius: 28px;
+            cursor: pointer;
+            font-family: var(--font-heading);
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .nav-button.active {
+            background: linear-gradient(90deg, rgba(192, 140, 128, 0.12), rgba(163, 193, 173, 0.08));
+            transform: translateY(-4px)
+        }
+
+        /* ========== Lightbox ========== */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .25s, visibility .25s
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible
+        }
+
+        .lightbox-content {
+            max-width: 92%;
+            max-height: 92%
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px
+        }
+
+        /* ========== Modal RSVP ========== */
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2200;
+            background: rgba(0, 0, 0, 0.5);
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity .25s, visibility .25s
+        }
+
+        .modal.active {
+            visibility: visible;
+            opacity: 1
+        }
+
+        .modal-card {
+            background: #fff;
+            padding: 18px;
+            border-radius: 12px;
+            max-width: 520px;
+            width: 92%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18)
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px
+        }
+
+        .form-row input,
+        .form-row textarea,
+        .form-row select {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            font-size: 14px;
+            font-family: var(--font-body);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 12px
+        }
+
+        /* ========== Modal RSVP (อัปเกรดความแจ๋ม) ========== */
+        .modal-card {
+            /* เพิ่ม transition สำหรับอนิเมชั่นสไลด์ขึ้น */
+            transition: transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity .3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        .modal.active .modal-card {
+            /* สถานะตอนเปิด */
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ปุ่มเลือกสถานะ (แทน select) */
+        .attend-options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            /* เผื่อจอเล็ก */
+        }
+
+        .attend-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px;
+            border: 2px solid #eee;
+            background: #fafafa;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--muted);
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: all .2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .attend-btn i {
+            opacity: 0.6;
+        }
+
+        .attend-btn.active {
+            border-color: var(--pink);
+            background: #fff;
+            color: var(--text);
+            box-shadow: 0 4px 12px rgba(192, 140, 128, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .attend-btn.active i {
+            opacity: 1;
+        }
+
+        /* อนิเมชั่น "สั่น" (Shake) */
+        @keyframes shake {
+
+            10%,
+            90% {
+                transform: translateX(-1px);
+            }
+
+            20%,
+            80% {
+                transform: translateX(2px);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translateX(-3px);
+            }
+
+            40%,
+            60% {
+                transform: translateX(3px);
+            }
+        }
+
+        .form-row.shake input {
+            animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+            border-color: #f44336;
+        }
+
+        /* Loading Spinner บนปุ่ม */
+        #saveRsvp .spinner {
+            display: none;
+        }
+
+        #saveRsvp.loading .spinner {
+            display: inline-block;
+            /* animation: spin 1s linear infinite; (ใช้ @keyframes spin) */
+        }
+
+        #saveRsvp.loading .btn-text {
+            display: none;
+            /* ซ่อนข้อความตอนหมุน */
+        }
+
+        #saveRsvp:disabled {
+            opacity: 0.7;
+        }
+
+        /* ========== Guestbook list (Avatar List Style) (CSS ใหม่) ========== */
+        .guestbook {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+
+            /* (ปรับปรุง) - นี่คือส่วนที่ทำให้เลื่อนได้ */
+            max-height: 450px;
+            /* กำหนดความสูงสูงสุด */
+            overflow-y: auto;
+            /* เปิดการเลื่อนแนวตั้ง */
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.01), transparent);
+            border: 1px solid #f0f0f0;
+            border-radius: 10px;
+            padding: 0 12px;
+            /* เพิ่ม padding ด้านข้าง */
+        }
+
+        .guest-item {
+            display: flex;
+            align-items: flex-start;
+            /* ให้ avatar อยู่บนสุด */
+            gap: 12px;
+            padding: 16px 4px;
+            /* เพิ่ม padding แนวตั้ง */
+            border-bottom: 1px solid #f0f0f0;
+            /* ใช้เส้นคั่น */
+            animation: fadeIn .5s ease forwards;
+            flex-shrink: 0;
+            /* ป้องกันการหดตัว */
+        }
+
+        .guest-item:last-child {
+            border-bottom: none;
+        }
+
+        /* สไตล์ของ Avatar (วงกลมตัวอักษร) */
+        .guest-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            flex-shrink: 0;
+            /* ไม่ให้ avatar หดตัว */
+            font-family: var(--font-heading);
+        }
+
+        /* สไตล์ของเนื้อหา (ชื่อ + ข้อความ) */
+        .guest-content {
+            flex: 1;
+            /* ให้เนื้อหาขยายเต็มพื้นที่ */
+        }
+
+        /* Keyframes สำหรับอนิเมชั่น */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ========== Toast ========== */
+        .toast {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 100px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 20px;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s, visibility .3s
+        }
+
+        .toast.show {
+            opacity: 1;
+            visibility: visible
+        }
+
+        /* ========== Confetti Canvas & Fireworks ========== */
+        #effectsCanvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1500
+        }
+
+        /* ========== Small responsive tweaks ========== */
+        @media (max-width:520px) {
+            .main-photo-wrapper {
+                height: 220px
+            }
+
+            .couple-name {
+                font-size: 32px
+            }
+
+            .countdown-value {
+                font-size: 22px
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <!-- <div class="sidebar">
-    <h3>โปรเจคของคุณ</h3>
-    <input type="text" id="newProjectName" placeholder="ชื่อโปรเจคใหม่">
-    <button onclick="createProject()">➕ สร้างโปรเจค</button>
-    <div id="projectList"></div>
-  </div> -->
-  <div class="sidebar">
-    <div class="project-input-group">
-      <input type="text" id="newProjectName" placeholder="ชื่อโปรเจคใหม่">
-      <button onclick="createProject()">➕ สร้างโปรเจค</button>
+
+    <canvas id="effectsCanvas"></canvas>
+
+    <header class="top-bar">
+        <div class="top-left">
+            <div class="brand" id="brandBtn">
+                <div class="monogram" title="P & O">PO</div>
+                <div style="display:flex;flex-direction:column;line-height:1">
+                    <small style="font-size:12px;color:var(--muted)">Wedding of</small>
+                    <strong style="font-family:var(--font-special);font-size:14px;color:var(--pink)">Preaw &
+                        Oat</strong>
+                </div>
+            </div>
+        </div>
+        <div class="top-actions">
+            <button class="icon-btn" id="rsvpOpen" title="RSVP"><i class="fas fa-envelope-open-text"></i></button>
+            <button class="icon-btn" id="shareBtn" title="Share"><i class="fas fa-share-alt"></i></button>
+        </div>
+    </header>
+
+    <div class="content">
+
+        <section id="program" class="page-section">
+            <div class="main-photo-wrapper" id="parallaxPhoto">
+                <img class="main-photo" id="heroImg"
+                    src="https://cdn.discordapp.com/attachments/1390887022331166902/1436630560582664313/IMG_7111.jpg?ex=69104df8&is=690efc78&hm=36ef7f0190392fe5c365ce53acde13e138d0e89f631f031909c33b574dd11631&"
+                    alt="Couple Photo">
+            </div>
+
+            <h1>PROGRAM</h1>
+
+            <div class="countdown-container">
+                <div class="countdown-title" style="text-align:center;color:var(--muted)">WE ARE GETTING MARRIED IN
+                </div>
+                <div class="countdown-timer" id="countdownTimer">
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="countdown-days">00</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="countdown-hours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="countdown-minutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-value" id="countdown-seconds">00</div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+                    <button class="open-btn" id="addCalendar">Add to Calendar</button>
+                    <a class="open-btn"
+                        href="data:text/calendar;charset=utf-8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0AURL:https://your-wedding-site.com%0ADTSTART:20251225T100000Z%0ADTEND:20251225T130000Z%0ASUMMARY:Wedding of Preaw & Oat%0ADESCRIPTION:พิธีหมั้น, พิธีหลั่งน้ำพระพุทธมนต์ และงานเลี้ยงฉลอง%0ALOCATION:Taksila Hotel, Maha Sarakham%0AEND:VEVENT%0AEND:VCALENDAR"
+                        download="wedding.ics" style="text-decoration:none">
+                        <button class="open-btn">Download .ICS</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="program-header" style="margin-top:18px">
+                <div class="parents">
+                    <img src="https://cdn.discordapp.com/attachments/1436238482577162293/1436632737531564063/IMG_7112.jpg?ex=69104fff&is=690efe7f&hm=f83fc04ebf4b21b70293a3e0304e2a5974262b87d9683c6fcb7cc1b44728d43a&"
+                        alt="Parents Photo">
+                </div>
+                <div style="margin-top:12px">
+                    <div class="couple-name">Preaw & Oat</div>
+                    <div style="color:var(--muted);font-size:14px">25 December 2025 • Taksila Hotel, Maha Sarakham</div>
+                </div>
+            </div>
+
+            <div style="display:flex;justify-content:center;gap:14px;margin-top:20px;flex-wrap:wrap">
+                <div style="text-align:center">
+                    <div style="font-weight:700;color:var(--pink)">09:00</div>
+                    <div style="font-size:13px;color:var(--muted)">พิธีมงคล</div>
+                </div>
+                <div style="text-align:center">
+                    <div style="font-weight:700;color:var(--pink)">12:00</div>
+                    <div style="font-size:13px;color:var(--muted)">งานเลี้ยง</div>
+                </div>
+                <div style="text-align:center">
+                    <div style="font-weight:700;color:var(--pink)">18:00</div>
+                    <div style="font-size:13px;color:var(--muted)">After Party</div>
+                </div>
+            </div>
+
+            <div style="margin-top:20px;text-align:center">
+                <div class="theme-title" style="font-size:13px;color:var(--muted)">WEDDING THEME COLORS</div>
+                <div class="theme-colors" style="margin-top:10px">
+                    <div class="color-swatch" style="background:#C08C80"></div>
+                    <div class="color-swatch" style="background:#F8F4E3"></div>
+                    <div class="color-swatch" style="background:#A3C1AD"></div>
+                    <div class="color-swatch" style="background:#5D5D5D"></div>
+                </div>
+            </div>
+
+            <div class="qr-section" style="margin-top:18px">
+                <div class="qr-box">
+                    <img src="https://cdn.discordapp.com/attachments/1390887022331166902/1436630630707495103/IMG_7102.jpg?ex=69104e09&is=690efc89&hm=288e6155dcb504595c3014bd7aa3704b240272b1e27ea14f71afe436cb2d07da&"
+                        width="90" alt="QR1">
+                    <div style="font-size:13px;margin-top:8px">บัญชี 1</div>
+                    <button class="copy-btn" data-acc="123-4-56789-0">คัดลอกเลขบัญชี</button>
+                </div>
+                <div class="qr-box">
+                    <img src="https://cdn.discordapp.com/attachments/1390887022331166902/1436630733224415354/IMG_7083.jpg?ex=69104e22&is=690efca2&hm=a14d032ad7015cc8be423e2486cee4c2642a9227ff2a6974c9db59180804fdaf&"
+                        width="90" alt="QR2">
+                    <div style="font-size:13px;margin-top:8px">บัญชี 2</div>
+                    <button class="copy-btn" data-acc="098-7-65432-1">คัดลอกเลขบัญชี</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="calendar" class="page-section">
+            <h1>CALENDAR</h1>
+            <div class="calendar-container" style="text-align:center">
+                <p style="color:var(--muted)">เพิ่มงานแต่งงานของเราในปฏิทินของคุณ</p>
+                <a href="#" id="googleCalendarBtn" class="open-btn" style="text-decoration:none">เพิ่มใน Google
+                    Calendar</a>
+                <a href="#" id="downloadICS" style="margin-left:8px;text-decoration:none"><button
+                        class="open-btn">ดาวน์โหลด .ICS</button></a>
+            </div>
+        </section>
+
+        <section id="gallery" class="page-section">
+            <h1>GALLERY</h1>
+            <div class="photo-grid">
+                <img src="https://cdn.discordapp.com/attachments/1390887022331166902/1436630630707495103/IMG_7102.jpg?ex=69104e09&is=690efc89&hm=288e6155dcb504595c3014bd7aa3704b240272b1e27ea14f71afe436cb2d07da&"
+                    alt="Gallery Photo 1">
+                <img src="https://cdn.discordapp.com/attachments/1390887022331166902/1436630733224415354/IMG_7083.jpg?ex=69104e22&is=690efca2&hm=a14d032ad7015cc8be423e2486cee4c2642a9227ff2a6974c9db59180804fdaf&"
+                    alt="Gallery Photo 2">
+                <img src="https://cdn.discordapp.com/attachments/1390887022331166902/1436630733463486554/IMG_7084.jpg?ex=69104e22&is=690efca2&hm=de22a8116c9b9d3b5d3020752edbd07e55e198192ec72c58f5d0e70385e26bb3&"
+                    alt="Gallery Photo 3">
+                <img src="https://cdn.discordapp.com/attachments/1390887022331166902/1436630733694308413/IMG_7087.jpg?ex=69104e22&is=690efca2&hm=bff4f40d06b3f83c62e5638ecd1a31f066dabe6b93be385e4b015798b958dda4&"
+                    alt="Gallery Photo 4">
+            </div>
+        </section>
+
+        <section id="location" class="page-section">
+            <h1>LOCATION</h1>
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3845.835928151241!2d103.29528067584166!3d16.18731308466659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3122a3161b29e061%3A0x6b6770e1b606d194!2sTaksila%20Hotel!5e0!3m2!1sen!2sth!4v1730939524673!5m2!1sen!2sth"
+                    width="100%" height="360" style="border:0" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="location-address">
+                <strong>Taksila Hotel (โรงแรมตักสิลา)</strong><br>
+                1227/68 Somthawinrat Rd, Nakwichai, Mueang Maha Sarakham 44000
+            </div>
+            <div style="text-align:center">
+                <a class="direction-button" href="https://maps.app.goo.gl/abcdef123456" target="_blank"><i
+                        class="fas fa-diamond-turn-right"></i> Direction</a>
+            </div>
+        </section>
+
+        <section id="guestbook" class="page-section">
+            <h1>GUESTBOOK & RSVP</h1>
+            <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start">
+                <div style="flex:1;min-width:260px">
+                    <div style="font-size:14px;color:var(--muted);margin-bottom:8px">ฝากข้อความถึงเรา</div>
+
+                    <div class="guestbook" id="guestList">
+                    </div>
+
+                    <div style="margin-top:10px">
+                        <button class="open-btn" id="openRsvpMobile">RSVP / Leave Message</button>
+                    </div>
+                </div>
+                <div style="width:320px;min-width:260px">
+                    <div
+                        style="background:linear-gradient(180deg,#fff,#fff);padding:12px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.04)">
+                        <div style="font-weight:700;color:var(--pink)">Plan a Gift</div>
+                        <p style="color:var(--muted);font-size:13px">หากต้องการให้ของขวัญ สามารถโอนผ่านบัญชีด้านบน
+                            หรือส่งของมาได้ตามที่อยู่ในคำเชิญ</p>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap">
+                            <a href="#" id="shareLine" style="text-decoration:none"><button class="open-btn"><i
+                                        class="fab fa-line"></i> Share LINE</button></a>
+                            <a href="#" id="shareWhats" style="text-decoration:none"><button class="open-btn"><i
+                                        class="fab fa-whatsapp"></i> WhatsApp</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
-    <h3>โปรเจคของคุณ</h3>
-    <div id="projectList"></div>
-  </div>
 
+    <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+        <button class="nav-button active" data-page="program"><i class="fas fa-list-alt"></i> Program</button>
+        <button class="nav-button" data-page="calendar"><i class="fas fa-calendar-alt"></i> Calendar</button>
+        <button class="nav-button" data-page="gallery"><i class="fas fa-image"></i> Gallery</button>
+        <button class="nav-button" data-page="location"><i class="fas fa-map-marker-alt"></i> Location</button>
+        <button class="nav-button" data-page="guestbook"><i class="fas fa-pen-fancy"></i> RSVP</button>
+    </nav>
 
-  <div class="main" id="mainContent" style="display: none;">
-    <h2 id="currentProjectTitle">กรุณาเลือกโปรเจค</h2>
-    <div class="actions">
-      <button onclick="document.getElementById('imageInput').click()">+ เพิ่มรูปภาพ</button>
-      <button onclick="saveAll()">💾 บันทึกทั้งหมด</button>
-      <button onclick="removeAllImages()">🗑️ ลบรูปทั้งหมด</button>
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <div class="lightbox-content">
+            <img src="" alt="Enlarged" id="lightboxImage">
+        </div>
     </div>
-    <textarea id="projectDescription" class="caption-input" placeholder="คำอธิบายรวมของรูปภาพ..."
-      style="margin-bottom: 20px; min-height: 150px; max-height: 300px; resize: vertical; width: 100%; max-width: 600px;"></textarea>
+
+    <div class="modal" id="rsvpModal" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="rsvpTitle">
+
+            <h2 id="rsvpTitle" style="margin-top:0; display:flex; align-items:center; gap:10px;">
+                <i class="fas fa-envelope-open-text" style="color:var(--pink)"></i>
+                RSVP / Leave a Message
+            </h2>
+
+            <div style="font-size:13px;color:var(--muted);margin-bottom:14px">แจ้งชื่อผู้จะมางาน
+                และฝากข้อความถึงเราได้เลย</div>
+
+            <div class="form-row">
+                <input type="text" id="guestName" placeholder="ชื่อ-นามสกุล" />
+            </div>
+
+            <div class="form-row attend-options" id="attendSelect">
+                <button class="attend-btn active" data-value="yes">
+                    <i class="fas fa-check-circle" style="color:#4caf50"></i> Yes, Attending
+                </button>
+                <button class="attend-btn" data-value="no">
+                    <i class="fas fa-times-circle" style="color:#f44336"></i> No, Can't make it
+                </button>
+                <button class="attend-btn" data-value="maybe">
+                    <i class="fas fa-question-circle" style="color:#ff9800"></i> Maybe
+                </button>
+            </div>
+
+            <div class="form-row">
+                <textarea id="guestMsg" rows="3" placeholder="ฝากข้อความถึงคู่บ่าวสาว"></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button class="open-btn" id="saveRsvp">
+                    <span class="btn-text">ส่งข้อความ</span>
+                    <i class="fas fa-spinner fa-spin spinner"></i>
+                </button>
+                <button class="open-btn" id="closeRsvp" style="background:#ddd;color:#333">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Copied!</div>
+
+    <script>
+        /* ========================= (JavaScript ที่ถูกแก้ไข) ========================= */
+
+        /* (!!!) (สำคัญ) วาง WEB APP URL ของคุณตรงนี้ (!!!) */
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxYulX6KL8gzwu189VmJIaSXvnxj6RF8hjTLxx5vHi0TaYm2iclc6kJ46-NMIBL6bPkYg/exec'; // <--- วาง URL ที่คัดลอกมาตรงนี้
+
+        /* ========================= Utilities ========================= */
+        const $ = (sel, root = document) => root.querySelector(sel);
+        const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+        function showToast(msg = 'Done', time = 2000) {
+            const t = $('#toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), time);
+        }
+
+        /* ========================= Intro Envelope (ถูกลบออกแล้ว) ========================= */
+        
+        // (ฟังก์ชัน openIntro() และตัวแปรที่เกี่ยวข้องถูกลบออกไป)
+
+        /* ========================= Parallax Hero ========================= */
+        const hero = $('#heroImg');
+        const parallaxWrap = $('#parallaxPhoto');
+        parallaxWrap.addEventListener('mousemove', (e) => {
+            const rect = parallaxWrap.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            hero.style.transform = `scale(1.06) translate(${x * 8}px, ${y * -6}px)`;
+        });
+        parallaxWrap.addEventListener('mouseleave', () => hero.style.transform = 'scale(1)');
+
+        /* ========================= Smooth Nav Buttons ========================= */
+        const navButtons = $$('.nav-button');
+        navButtons.forEach(b => {
+            b.addEventListener('click', (e) => {
+                navButtons.forEach(x => x.classList.remove('active'));
+                b.classList.add('active');
+                const page = b.dataset.page;
+                const sec = document.getElementById(page);
+                if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        const sections = $$('.page-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    navButtons.forEach(nb => nb.dataset.page === id ? nb.classList.add('active') : nb.classList.remove('active'));
+                }
+            });
+        }, { threshold: 0.45 });
+        sections.forEach(s => observer.observe(s));
+
+        /* ========================= Lightbox ========================= */
+        const galleryImages = $$('.photo-grid img');
+        const lightbox = $('#lightboxOverlay');
+        const lightboxImg = $('#lightboxImage');
+        galleryImages.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target === lightboxImg) {
+                lightbox.classList.remove('active'); document.body.style.overflow = '';
+            }
+        });
+
+        /* ========================= Countdown ========================= */
+        const countdownTarget = new Date('December 25, 2025 10:00:00 GMT+0700').getTime();
+        const dEl = $('#countdown-days'), hEl = $('#countdown-hours'), mEl = $('#countdown-minutes'), sEl = $('#countdown-seconds');
+        let countdownInterval = setInterval(() => {
+            const now = Date.now();
+            const diff = countdownTarget - now;
+            if (diff <= 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('countdownTimer').innerHTML = '<div style="font-size:20px;color:var(--pink);font-weight:700">WE ARE MARRIED!</div>';
+                startFireworks(5);
+                startBigConfetti(150);
+                return;
+            }
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            dEl.textContent = String(days).padStart(2, '0');
+            hEl.textContent = String(hours).padStart(2, '0');
+            mEl.textContent = String(minutes).padStart(2, '0');
+            sEl.textContent = String(seconds).padStart(2, '0');
+        }, 1000);
 
 
-    <input type="file" id="imageInput" accept="image/*" multiple style="display:none" />
-    <div class="gallery" id="gallery"></div>
-  </div>
+        /* ========================= RSVP / Guestbook (Google Sheets) ========================= */
 
-  <!-- Lightbox -->
-  <div id="lightbox" class="lightbox" style="display:none;">
-    <span class="close-btn">&times;</span>
-    <img class="lightbox-img" src="" alt="รูปขนาดใหญ่">
-  </div>
+        const rsvpModal = $('#rsvpModal');
+        $('#rsvpOpen').addEventListener('click', () => rsvpModal.classList.add('active'));
+        $('#openRsvpMobile').addEventListener('click', () => rsvpModal.classList.add('active'));
+        $('#closeRsvp').addEventListener('click', () => rsvpModal.classList.remove('active'));
 
-  <script>
-    let projects = JSON.parse(localStorage.getItem('projects')) || {};
-    let currentProject = null;
+        const attendButtons = $$('.attend-btn');
+        attendButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                attendButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
 
-    const gallery = document.getElementById('gallery');
-    const projectList = document.getElementById('projectList');
-    const currentProjectTitle = document.getElementById('currentProjectTitle');
-    const projectDescription = document.getElementById('projectDescription');
+        /* (อัปเดต) - ฟังก์ชันโหลด Guestbook (จาก Google Sheets) */
+        async function loadGuests() {
+            const list = $('#guestList');
+            list.innerHTML = `<div style="text-align:center;color:var(--muted);padding:20px;font-style:italic;">Loading messages...</div>`;
 
-    function renderProjects() {
-      projectList.innerHTML = '';
-      for (const name in projects) {
-        const container = document.createElement('div');
-        container.className = 'project-item';
-        container.style.display = 'flex';
-        container.style.justifyContent = 'space-between';
-        container.style.alignItems = 'center';
-        container.style.gap = '10px';
+            const avatarColors = ['#C08C80', '#A3C1AD', '#5D5D5D', '#e5a89b', '#88a09e', '#bcaaa4'];
 
-        // เอา event listener ไว้ที่ container เลย
-        container.onclick = () => loadProject(name);
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
 
-        const nameSpan = document.createElement('span');
-        nameSpan.textContent = name;
-        nameSpan.style.flex = '1';
-        nameSpan.style.cursor = 'pointer';
-        // ลบ onclick ของ nameSpan ออก (ไม่ต้องมี เพราะ container คลิกได้ทั้งหมด)
+                if (data.status !== "success" || data.messages.length === 0) {
+                    list.innerHTML = `<div style="text-align:center;color:var(--muted);padding:20px;font-style:italic;">ยังไม่มีข้อความอวยพร...</div>`;
+                    return;
+                }
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'ลบ';
-        deleteBtn.style.background = 'rgba(255, 50, 50, 0.9)';
-        deleteBtn.style.color = 'white';
-        deleteBtn.style.border = 'none';
-        deleteBtn.style.borderRadius = '6px';
-        deleteBtn.style.padding = '4px 10px';
-        deleteBtn.style.cursor = 'pointer';
-        deleteBtn.onclick = (e) => {
-          e.stopPropagation(); // ป้องกันไม่ให้ container รับ event คลิกด้วย
-          if (confirm(`คุณต้องการลบโปรเจค "${name}" หรือไม่?`)) {
-            delete projects[name];
-            if (currentProject === name) {
-              currentProject = null;
-              currentProjectTitle.textContent = 'กรุณาเลือกโปรเจค';
-              gallery.innerHTML = '';
-              document.getElementById('mainContent').style.display = 'none';
+                list.innerHTML = ''; // เคลียร์ Loading
+
+                // .reverse() เพื่อให้ข้อความใหม่ (ที่อยู่ล่างสุดในชีต) มาอยู่บนสุด
+                data.messages.reverse().forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'guest-item';
+
+                    const name = escapeHtml(item.name || 'Guest');
+                    const initial = name.charAt(0).toUpperCase();
+
+                    const colorIndex = Math.abs((name.charCodeAt(0) || 65) - 65) % avatarColors.length;
+                    const avatarBg = avatarColors[colorIndex];
+
+                    div.innerHTML = `
+                <div class="guest-avatar" style="background-color: ${avatarBg}">${initial}</div>
+                <div class="guest-content">
+                    <div>
+                        <strong style="font-family: var(--font-heading); font-size: 15px;">${name}</strong>
+                        <span style="font-size: 11px; color: var(--muted); margin-left: 6px;">
+                            Attending: <span style="font-weight:700;color:${item.attend === 'yes' ? '#4caf50' : (item.attend === 'no' ? '#f44336' : '#ff9800')}">${item.attend}</span>
+                        </span>
+                    </div>
+                    <div style="font-size: 15px; color: var(--text); margin-top: 6px; line-height: 1.5; font-style: italic;">
+                        “${escapeHtml(item.msg) || 'ยินดีด้วยนะ!'}”
+                    </div>
+                </div>`;
+                    list.appendChild(div);
+                });
+
+            } catch (error) {
+                list.innerHTML = `<div style="text-align:center;color:#f44336;padding:20px;">Error loading messages. Please check API URL.</div>`;
+                console.error("Error fetching messages:", error);
+            }
+        }
+
+        function escapeHtml(s = '') { return String(s).replace(/[&<>"']/g, c => ({ '&': '&', '<': '<', '>': '>', '"': '"', "'": "'" }[c])); }
+
+        /* (อัปเดต) - ตรรกะการกดปุ่ม Save RSVP (ส่งไป Google Sheets) */
+        const saveBtn = $('#saveRsvp');
+        const guestNameInput = $('#guestName');
+
+        saveBtn.addEventListener('click', async () => {
+            const name = guestNameInput.value.trim();
+            const attend = $('.attend-btn.active')?.dataset.value || 'maybe';
+            const msg = $('#guestMsg').value.trim();
+            const nameRow = guestNameInput.closest('.form-row');
+
+            if (!name) {
+                showToast('กรุณากรอกชื่อ');
+                nameRow.classList.add('shake');
+                setTimeout(() => nameRow.classList.remove('shake'), 500);
+                return;
             }
 
-            saveAll();
-            renderProjects();
-          }
-        };
+            // 1. แสดง Loading Spinner
+            saveBtn.classList.add('loading');
+            saveBtn.disabled = true;
 
-        container.appendChild(nameSpan);
-        container.appendChild(deleteBtn);
-        projectList.appendChild(container);
-      }
-    }
+            // 2. สร้าง FormData เพื่อส่ง
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('attend', attend);
+            formData.append('msg', msg);
+
+            try {
+                // 3. ส่งข้อมูล (POST) ไปที่ Google Sheets
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // 4. ถ้าสำเร็จ
+                saveBtn.classList.remove('loading');
+                saveBtn.disabled = false;
+
+                showToast('ส่งแล้ว ขอบคุณมากค่ะ');
+                guestNameInput.value = '';
+                $('#guestMsg').value = '';
+                attendButtons.forEach(b => {
+                    b.classList.toggle('active', b.dataset.value === 'yes');
+                });
+
+                rsvpModal.classList.remove('active');
+
+                // โหลด Guestbook ใหม่ทันที
+                loadGuests();
+
+            } catch (error) {
+                saveBtn.classList.remove('loading');
+                saveBtn.disabled = false;
+                showToast('Error: ไม่สามารถส่งข้อความได้');
+                console.error("Error posting message:", error);
+            }
+        });
+
+        // โหลดข้อความทั้งหมดเมื่อเปิดหน้า
+        loadGuests();
+
+        /* ========================= (จบส่วน RSVP/Guestbook) ========================= */
 
 
-    function createProject() {
-      const name = document.getElementById('newProjectName').value.trim();
-      if (name && !projects[name]) {
-        projects[name] = { description: '', images: [] };
-        saveProjectsToStorage();
-        renderProjects();
-        loadProject(name);
-        document.getElementById('newProjectName').value = '';
-      } else {
-        alert('กรุณากรอกชื่อโปรเจค หรือโปรเจคนี้มีอยู่แล้ว');
-      }
-    }
+        /* ========================= Copy account buttons ========================= */
+        $$('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const acc = btn.dataset.acc || '';
+                navigator.clipboard?.writeText(acc).then(() => showToast('คัดลอกเลขบัญชีแล้ว: ' + acc), () => { showToast('ไม่สามารถคัดลอกได้'); });
+            });
+        });
 
-    function loadProject(name) {
-      currentProject = name;
-      currentProjectTitle.textContent = name;
-      document.getElementById('mainContent').style.display = 'block';
+        /* ========================= Share Links ========================= */
+        $('#shareLine').addEventListener('click', (e) => {
+            e.preventDefault();
+            const text = encodeURIComponent('งานแต่ง Preaw & Oat 25 ธ.ค. 2025 — ดูรายละเอียดที่: ' + location.href);
+            window.open(`https://line.me/R/msg/text/?${text}`, '_blank');
+        });
+        $('#shareWhats').addEventListener('click', (e) => {
+            e.preventDefault();
+            const text = encodeURIComponent('งานแต่ง Preaw & Oat 25 ธ.ค. 2025 — ดูรายละเอียดที่: ' + location.href);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        });
 
-      // โหลดคำอธิบาย
-      projectDescription.value = projects[currentProject].description || '';
+        /* ========================= Audio controls (ถูกลบออกแล้ว) ========================= */
+        // (โค้ด musicBtn, bgMusic ถูกลบออก)
+        
+        /* ========================= Google Calendar button ========================= */
+        $('#addCalendar').addEventListener('click', () => {
+            const start = '20251225T100000Z';
+            const end = '20251225T130000Z';
+            const text = encodeURIComponent('Wedding of Preaw & Oat');
+            const details = encodeURIComponent('พิธีหมั้น, พิธีหลั่งน้ำพระพุทธมนต์ และงานเลี้ยงฉลอง');
+            const location = encodeURIComponent('Taksila Hotel, Maha Sarakham');
+            const href = `https://www.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}&details=${details}&location=${location}&sf=true&output=xml`;
+            window.open(href, '_blank');
+        });
 
-      renderGallery();
-    }
+        /* ========================= Minimal Confetti & Fireworks System ========================= */
+        const canvas = document.getElementById('effectsCanvas');
+        const ctx = canvas.getContext('2d');
+        let W = innerWidth, H = innerHeight;
+        canvas.width = W; canvas.height = H;
+        window.addEventListener('resize', () => { W = innerWidth; H = innerHeight; canvas.width = W; canvas.height = H; });
 
-    function renderGallery() {
-      gallery.innerHTML = '';
-      if (!currentProject || !projects[currentProject]) return;
+        let particles = [];
+        function random(min, max) { return Math.random() * (max - min) + min; }
 
-      projects[currentProject].images.forEach((item, index) => {
-        const block = document.createElement('div');
-        block.className = 'image-block';
-
-        const img = document.createElement('img');
-        img.src = item.src;
-        img.onclick = () => openLightbox(item.src);
-
-        const caption = document.createElement('textarea');
-        caption.className = 'caption-input';
-        caption.value = item.caption || '';
-        caption.oninput = () => {
-          projects[currentProject].images[index].caption = caption.value;
-          saveProjectsToStorage();
-        };
-
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'remove-btn';
-        removeBtn.textContent = 'ลบ';
-        removeBtn.onclick = () => {
-          projects[currentProject].images.splice(index, 1);
-          renderGallery();
-          saveProjectsToStorage();
-        };
-
-        block.appendChild(img);
-        block.appendChild(caption);
-        block.appendChild(removeBtn);
-        gallery.appendChild(block);
-      });
-    }
-
-    document.getElementById('imageInput').addEventListener('change', async function (event) {
-      if (!currentProject || !projects[currentProject]) {
-        alert("\u274c กรุณาเลือกโปรเจคก่อนอัปโหลดรูปภาพ");
-        return;
-      }
-
-      const files = Array.from(event.target.files);
-      for (const file of files) {
-        let imgSrc = '';
-        if (file.name.toLowerCase().endsWith('.heic')) {
-          try {
-            const converted = await heic2any({ blob: file, toType: 'image/jpeg' });
-            imgSrc = URL.createObjectURL(converted);
-          } catch (e) {
-            alert(`ไม่สามารถแปลง HEIC: ${file.name}`);
-            continue;
-          }
-        } else {
-          imgSrc = await readAsDataURL(file);
+        function startSubtleConfetti() {
+            // (แก้) - ทำให้ Confetti เริ่มทำงานอัตโนมัติเมื่อเปิดหน้า
+            for (let i = 0; i < 30; i++) {
+                particles.push({
+                    x: random(0, W), y: H + random(10, 200),
+                    vx: random(-0.3, 0.3), vy: random(-1.6, -0.6),
+                    size: random(6, 14), life: random(3000, 8000), born: Date.now(),
+                    shape: Math.random() > 0.5 ? 'heart' : 'circle', color: ['#C08C80', '#F8F4E3', '#A3C1AD', '#5D5D5D'][Math.floor(Math.random() * 4)]
+                });
+            }
         }
-        projects[currentProject].images.push({ src: imgSrc, caption: '' });
-      }
+        function startBigConfetti(n = 100) {
+            for (let i = 0; i < n; i++) {
+                particles.push({
+                    x: W / 2 + random(-120, 120), y: H / 2 + random(-40, 40),
+                    vx: random(-6, 6), vy: random(-10, -2),
+                    size: random(6, 14), life: random(2000, 6000), born: Date.now(),
+                    shape: 'rect', color: ['#C08C80', '#A3C1AD', '#FFD8C2', '#F7F7F7'][Math.floor(Math.random() * 4)]
+                });
+            }
+        }
+        function startFireworks(bursts = 4) {
+            let i = 0;
+            const t = setInterval(() => {
+                const x = random(W * 0.2, W * 0.8);
+                const y = random(H * 0.15, H * 0.5);
+                for (let k = 0; k < 60; k++) {
+                    particles.push({
+                        x, y,
+                        vx: Math.cos((k / 60) * Math.PI * 2) * random(1, 8),
+                        vy: Math.sin((k / 60) * Math.PI * 2) * random(1, 8),
+                        size: random(2, 4), life: random(800, 1800), born: Date.now(),
+                        shape: 'spark', color: ['#fff', '#ffd700', '#ff6b6b', '#a3d9a5'][Math.floor(Math.random() * 4)]
+                    });
+                }
+                i++; if (i >= bursts) clearInterval(t);
+            }, 450);
+        }
 
-      renderGallery();
-      saveProjectsToStorage();
-    });
+        let last = Date.now();
+        function draw() {
+            const now = Date.now();
+            const dt = now - last;
+            last = now;
+            ctx.clearRect(0, 0, W, H);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                const age = now - p.born;
+                if (age > p.life) { particles.splice(i, 1); continue; }
+                p.x += p.vx * (dt / 16);
+                p.y += p.vy * (dt / 16);
+                if (p.shape !== 'heart') p.vy += 0.2 * (dt / 16);
+                const alpha = 1 - (age / p.life);
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = p.color;
+                if (p.shape === 'heart') {
+                    const s = p.size; ctx.beginPath(); const x = p.x, y = p.y;
+                    ctx.moveTo(x, y + s / 4); ctx.bezierCurveTo(x, y - s / 2, x - s, y - s / 2, x - s, y + s / 4);
+                    ctx.bezierCurveTo(x - s, y + s / 1.6, x - s / 2, y + s, x, y + s * 1.3);
+                    ctx.bezierCurveTo(x + s / 2, y + s, x + s, y + s / 1.6, x + s, y + s / 4);
+                    ctx.bezierCurveTo(x + s, y - s / 2, x, y - s / 2, x, y + s / 4); ctx.fill();
+                } else if (p.shape === 'spark') {
+                    ctx.fillRect(p.x, p.y, p.size, p.size);
+                } else if (p.shape === 'rect') {
+                    ctx.save(); ctx.translate(p.x, p.y);
+                    ctx.rotate((p.x + p.y) % 360 * Math.PI / 180);
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 1.6); ctx.restore();
+                } else {
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2); ctx.fill();
+                }
+                ctx.globalAlpha = 1;
+            }
+            requestAnimationFrame(draw);
+        }
+        draw();
 
-    function readAsDataURL(file) {
-      return new Promise(resolve => {
-        const reader = new FileReader();
-        reader.onload = e => resolve(e.target.result);
-        reader.readAsDataURL(file);
-      });
-    }
+        function startSubtleAuto() {
+            startSubtleConfetti(); // (แก้) - เรียกให้ทำงานเลย 1 ครั้ง
+            setInterval(() => startSubtleConfetti(), 8000);
+        }
+        startSubtleAuto();
 
-    // บันทึกข้อมูลทั้งหมดลง localStorage
-    function saveProjectsToStorage() {
-      localStorage.setItem('projects', JSON.stringify(projects));
-    }
+        document.addEventListener('dblclick', () => { startBigConfetti(180); });
 
-    // บันทึกและแจ้งเตือน
-    function saveAll() {
-      if (currentProject && projects[currentProject]) {
-        projects[currentProject].description = projectDescription.value;
-      }
-      saveProjectsToStorage();
-      alert('✅ บันทึกข้อมูลเรียบร้อย');
-    }
+        /* ========================= Share button (quick) ========================= */
+        $('#shareBtn').addEventListener('click', () => {
+            if (navigator.share) {
+                navigator.share({ title: 'Wedding Preaw & Oat', text: 'งานแต่ง Preaw & Oat 25 ธ.ค. 2025', url: location.href }).catch(() => { });
+            } else {
+                showToast('ระบบแชร์ไม่รองรับบนอุปกรณ์นี้');
+            }
+        });
 
-    function removeAllImages() {
-      if (!currentProject || !projects[currentProject]) {
-        alert("\u274c กรุณาเลือกโปรเจคก่อนลบรูป");
-        return;
-      }
+        /* ========================= Accessibility / keyboard close of modals ========================= */
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                rsvpModal.classList.remove('active');
+                lightbox.classList.remove('active');
+                // (ลบ intro.classList.add('intro-hidden'); ออก)
+            }
+        });
 
-      const confirmDelete = confirm("คุณแน่ใจหรือไม่ว่าต้องการลบรูปทั้งหมดในโปรเจคนี้?");
-      if (confirmDelete) {
-        projects[currentProject].images = [];
-        renderGallery();
-        saveProjectsToStorage();
-        alert("🗑️ ลบรูปทั้งหมดเรียบร้อยแล้ว");
-      }
-    }
+        /* ========================= Small nice touches (ถูกลบออกแล้ว) ========================= */
+        
+        // (ลบ localStorage 'inviteSeen' check ออก)
 
-    // อัพเดตคำอธิบายทันทีเมื่อพิมพ์
-    projectDescription.oninput = () => {
-      if (currentProject && projects[currentProject]) {
-        projects[currentProject].description = projectDescription.value;
-        saveProjectsToStorage();
-      }
-    };
+        /* Pre-populate share links with proper URL when page loaded */
+        $('#shareLine').href = `https://line.me/R/msg/text/?${encodeURIComponent('งานแต่ง Preaw & Oat 25 ธ.ค. 2025 — ' + location.href)}`;
+        $('#shareWhats').href = `https://wa.me/?text=${encodeURIComponent('งานแต่ง Preaw & Oat 25 ธ.ค. 2025 — ' + location.href)}`;
 
-    // Lightbox functions
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.querySelector('.lightbox-img');
-    const closeBtn = document.querySelector('.close-btn');
+        window.startBigConfetti = startBigConfetti;
+        window.startFireworks = startFireworks;
 
-    function openLightbox(src) {
-      lightboxImg.src = src;
-      lightbox.style.display = 'flex';
-    }
+        // (ลบ $('#openInviteBtn').focus(); ออก)
 
-    function closeLightbox() {
-      lightbox.style.display = 'none';
-      lightboxImg.src = '';
-    }
+        /* ========================= End script ========================= */
+    </script>
 
-    closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', e => {
-      if (e.target === lightbox) closeLightbox();
-    });
-
-    renderProjects();
-  </script>
 </body>
-
 
 </html>
